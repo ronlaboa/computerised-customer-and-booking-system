@@ -22,7 +22,7 @@ def ask(prompt)
 end
 
 def clear_screen
-  print "\e[2J\e[H"
+  system("clear")
 end
 
 def pause
