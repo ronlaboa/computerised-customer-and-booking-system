@@ -140,6 +140,21 @@ RSpec.describe BookingStore do
     end
   end
 
+  describe '#booking_cost_for_sepfriced_date' do
+    it 'return the total cost for windows for spcified date' do
+      store.create_booking('1', tomorrow) # 10 windows
+      store.create_booking('2', tomorrow) # 4 windows
+
+      expect(store.tota_cost_of_booking_for_a_specified_date(tomorrow)).to eq(24)
+
+    end
+
+    it 'raises an error for an unknown booking number' do
+      expect { store.booking_cost('99') }
+        .to raise_error(ArgumentError, 'No booking with number 99')
+    end
+  end
+
   describe '#add_booking' do
     it 'is private' do
       booking = Bookings.new('1', '1', tomorrow)

@@ -11,8 +11,8 @@ require_relative 'bookings'
 # a booking at £5 per property + £1 per window.
 
 class BookingStore
-  PRICE_PER_PROPERTY = 5
-  PRICE_PER_WINDOW = 1
+  PRICE_PER_PROPERTY = 5.00
+  PRICE_PER_WINDOW = 1.50
 
   def initialize(customer_store)
     @bookings = {}
@@ -54,6 +54,15 @@ class BookingStore
     windows = @customer_store.find_customer(booking.customer_number).windows
     PRICE_PER_PROPERTY + (PRICE_PER_WINDOW * windows)
   end
+
+  def tota_cost_of_booking_for_a_specified_date(date)
+    @bookings.values
+             .select { |b| b.date == date }
+             .sum { |b| booking_cost(b.booking_number) }
+
+
+  end
+
 
   private
 
